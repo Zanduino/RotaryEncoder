@@ -14,11 +14,11 @@ hardware interrupt, but that limitation is offset by the efficiency with which t
 The hardware interrupt pins vary from one Atmel processor to another and need to be checked; the example programs for this class use 
 those pins available for the Arduino Micro (ATmega32U4). Newer processor impose less restriction on which hardware interrupts can be used.
 Likewise the 3 pins used for the Red, Green and Blue LED lights need to be PWM-capable pins, which vary from processor to processor. The
-rotar encoder uses a common cathode (+) pin, so the 3 lights are driven to ground for full power and high for "OFF"; meaning an analog 
+rotary encoder uses a common cathode (+) pin, so the 3 lights are driven to ground for full power and high for "OFF"; meaning an analog 
 write of "255" turns the respective LED off and an analog write of "0" turns it on at full power.
 
 Fading of the LEDs is done by piggy-backing off the timer0, which is used by the Arduino millis() function. 
 
-See the [Wiki pages for details](https://github.com/SV-Zanshin/MicrochipSRAM/wiki) of the class and the variables / functions accessible in it.
+See the [Wiki pages for details](https://github.com/SV-Zanshin/RotaryEncoder/wiki) of the class and the variables / functions accessible in it.
 
 ![Zanshin Logo](https://www.sv-zanshin.com/images/gif/zanshinkanjitiny.gif) <img src="https://www.sv-zanshin.com/images/gif/zanshintext.gif" width="75"/>
