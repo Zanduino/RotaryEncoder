@@ -26,14 +26,7 @@ EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     //
   attachInterrupt(digitalPinToInterrupt(LeftPin),RotateISR,CHANGE);           // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(RightPin),RotateISR,CHANGE);          // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(PushbuttonPin),PushButtonISR,RISING); // Attach static internal function  //
-  // Timer 0 is used by the millis() function and is an 8-bit register with a clock divisor of 64 which triggers  //
-  // it to overflow at 976.5625Hz. The millis() function uses the TIMER0_OVF_vect so we can't use that, so we set //
-  // the TIMER0_COMPA_vect set to 0x01 which trigger when the value is equal to 1. This gives us a pretty quick   //
-  // trigger rate which suffices to light and fade the LED lights                                                 //
-  cli();                                                                      // Disable interrupts               //
-  OCR0A   = 0x01;                                                             // Comparison register setup to 1   //
-  TIMSK0 |= _BV(OCIE0A);                                                      // TIMER0_COMPA trigger on 0x01     //
-  sei();                                                                      // Enable interrupts                //
+  SetFade(true);                                                              // turn on fader and interrupt      //
 } // of class constructor                                                     //                                  //
 ISR(TIMER0_COMPA_vect) {EncoderClass::TimerISR();}                            // Call the ISR every millisecond   //
 static void EncoderClass::PushButtonISR(){ClassPtr->PushButtonHandler();}     // Redirect to real handler function//
@@ -83,7 +76,7 @@ void EncoderClass::PushButtonHandler() {                                      //
     _BlueTarget   = _ColorPushButtonB;                                        // Set target color                 //
   } // of if-then we have a valid pushbutton event                            //                                  //
 } // of method PushButtonHandler()                                            //                                  //
-  
+
 /*******************************************************************************************************************
 ** function RotateHandler() is the actual ISR called when a pin change on the left or right pin is detected. The  **
 ** quadrature values for the 2 pins are read and the two bits are stored in the "encoded" variable. This is ORd   **
@@ -110,7 +103,7 @@ void EncoderClass::PushButtonHandler() {                                      //
     } // of if-then a CCW turn                                                //                                  //
     lastEncoded = encoded;                                                    // store the value for next time    //
   } // of method RotateHandler()                                              //                                  //
-  
+
 /*******************************************************************************************************************
 ** function ButtonPushes() returns number of button pushes since the last call and resets the value               **
 *******************************************************************************************************************/
@@ -119,6 +112,14 @@ uint8_t EncoderClass::GetButton() {                                           //
   _ButtonPresses      = 0;                                                    // reset value                      //
   return(returnValue);                                                        //                                  //
 } // of method GetButton()                                                    //                                  //
+/*******************************************************************************************************************
+** function SetColor() is called to set the RGB values to set when the button is pushed                 **
+*******************************************************************************************************************/
+void EncoderClass::SetColor(const uint8_t R,const uint8_t G,const uint8_t B) {//                                  //
+  _RedTarget   = R;                                                           // set internal values              //
+  _GreenTarget = G;                                                           // set internal values              //
+  _BlueTarget  = B;                                                           // set internal values              //
+} // of method SetColor                                                       //                                  //
 /*******************************************************************************************************************
 ** function SetPushButtonColor() is called to set the RGB values to set when the button is pushed                 **
 *******************************************************************************************************************/
@@ -151,7 +152,7 @@ void EncoderClass::SetCCWTurnColor(const uint8_t R, const uint8_t G,          //
 ** then none of the other color-related functions will have any effect until the LEDs are turn ON (true)          **
 *******************************************************************************************************************/
 void EncoderClass::SetLEDState(const bool Status) {                           //                                  //
-  _LEDOn = Status;                                                            // Set the internal switch variable // 
+  _LEDOn = Status;                                                            // Set the internal switch variable //
   if (!Status) {                                                              // if we are turning off the LEDs   //
       analogWrite(_RedPin,255);                                               // ensure everything is turned off  //
       analogWrite(_GreenPin,255);                                             //                                  //
@@ -170,3 +171,23 @@ int16_t EncoderClass::GetEncoderValue() {                                     //
 void EncoderClass::SetEncoderValue(const int16_t NewValue = 0) {              //                                  //
   _EncoderValue = NewValue;                                                   // Set the new value                //
 } // of method SetEncoderValue()                                              //                                  //
+/*******************************************************************************************************************
+** function SetFade() is called to turn the fade functionality on or off. The fade is done by turning on the      **
+** Timer0 interrupt. Timer 0 is used by the millis() function and is an 8-bit register with a clock divisor of 64 **
+** which triggers it to overflow at 976.5625Hz. The millis() function uses the TIMER0_OVF_vect so we can't use    **
+** that, so we set the TIMER0_COMPA_vect set to 0x01 which trigger when the value is equal to 1. This gives us a  **
+** pretty quick trigger rate which suffices to light and fade the LED lights                                      **
+*******************************************************************************************************************/
+void EncoderClass::SetFade(const bool FadeState) {                            //                                  //
+  _Fade = FadeState;                                                          // Set the private variable to value//
+  if (FadeState) {                                                            // If turning on, set the ISR       //
+    cli();                                                                    // Disable interrupts               //
+    OCR0A   = 0x01;                                                           // Comparison register setup to 1   //
+    TIMSK0 |= _BV(OCIE0A);                                                    // TIMER0_COMPA trigger on 0x01     //
+    sei();                                                                    // Enable interrupts                //
+  } else {                                                                    // If turning off, unset the ISR    //
+    cli();                                                                    // Disable interrupts               //
+    TIMSK0 &= ~_BV(OCIE0A);                                                   // TIMER0_COMPA trigger off         //
+    sei();                                                                    // Enable interrupts                //
+  } // of if-then-else we need to turn fading on or off                       //                                  //
+} // of method SetColor                                                       //                                  //

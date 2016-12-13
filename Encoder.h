@@ -53,13 +53,15 @@
       uint8_t     GetButton();                                                // Returns number of button pushes  //
       int16_t     GetEncoderValue();                                          // Return the encoder value         //
       void        SetEncoderValue(const int16_t NewValue = 0);                // Set the encoder value            //
+      void        SetLEDState(const bool Status);                             // Turns encoder LEDs on or off     //
+      void        SetFade(const bool FadeState);                              // Sets the fader state             //
+      void        SetColor(const uint8_t R,const uint8_t G,const uint8_t B);  // Sets the LED colors              //
       void        SetPushButtonColor(const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when the pushbutton is pressed   //
       void        SetCWTurnColor    (const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when rotated clockwise           //
       void        SetCCWTurnColor   (const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when rotated counterclockwise    //
-      void        SetLEDState(const bool Status);                             // Turns encoder LEDs on or off     //
       static void TimerISR();                                                 // Interim ISR calls real handler   //
     private:                                                                  // Declare private class members    //
       static void PushButtonISR();                                            // Interim ISR calls real handler   //
