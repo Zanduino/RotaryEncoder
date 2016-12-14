@@ -37,7 +37,8 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
-** 1.0.1  2016-12-14 Arnd@SV-Zanshin.Com Allowed defaults for LEDs on class constructer                           **
+** 1.0.1  2016-12-14 Arnd@SV-Zanshin.Com Fixed error on condition to turn off LED lights.                         **
+** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Allowed defaults for LEDs on class constructer                           **
 ** 1.0.b3 2016-12-13 Arnd@SV-Zanshin.Com Made fading start only after the maximum setting was reached             **
 ** 1.0.b2 2016-12-12 Arnd@SV-Zanshin.Com Fixed interrupt calls                                                    **
 ** 1.0.b1 2016-12-04 Arnd@SV-Zanshin.Com Initial coding                                                           **

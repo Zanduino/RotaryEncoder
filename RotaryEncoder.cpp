@@ -29,8 +29,8 @@ EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     //
   attachInterrupt(digitalPinToInterrupt(LeftPin),RotateISR,CHANGE);           // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(RightPin),RotateISR,CHANGE);          // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(PushbuttonPin),PushButtonISR,RISING); // Attach static internal function  //
-  if (RedPin|GreenPin|BluePin==255) SetFade(false);                           // If no LEDs, turn off fader       //
-                               else SetFade(true);                            // turn on fader and interrupt      //
+  if (RedPin==255&&GreenPin==255&&BluePin==255) SetFade(false);               // If no LEDs, turn off fader       //
+                                           else SetFade(true);                // turn on fader and interrupt      //
 } // of class constructor                                                     //                                  //
 ISR(TIMER0_COMPA_vect) {EncoderClass::TimerISR();}                            // Call the ISR every millisecond   //
 static void EncoderClass::PushButtonISR(){ClassPtr->PushButtonHandler();}     // Redirect to real handler function//
