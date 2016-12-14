@@ -1,5 +1,8 @@
 /*******************************************************************************************************************
-** This program defines the RotaryEncoder class header.                                                           **
+** This program defines the RotaryEncoder class header. It is published on GitHub and full description of the     **
+** class as well as the public function descriptions can be found at the GitHub wiki pages located at:            **
+**                                                                                                                **
+**                              https://github.com/SV-Zanshin/RotaryEncoder/wiki                                  **
 **                                                                                                                **
 ** This program demonstrates the Rotary Encoder class which controls a commonly used rotary encoder with a clear  **
 ** knob using 3 colored LEDs (Red, Green and Blue) along with a pushbutton. These are available from sources such **
@@ -24,17 +27,18 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Changed include from "Encoder" to "RotaryEncoder", added comments        **
 ** 1.0.0  2016-12-13 Arnd@SV-Zanshin.Com Initial coding                                                           **
 **                                                                                                                **
 *******************************************************************************************************************/
-#include <Encoder.h>                                                          // Include Encoder library          //
+#include <RotaryEncoder.h>                                                    // Include Encoder library          //
                                                                               //----------------------------------//
 const uint8_t  ROTARY_PIN_1   =  2;                                           // Pin for left rotary encoder pin  //
 const uint8_t  ROTARY_PIN_2   =  3;                                           // Pin for right rotary encoder pin //
 const uint8_t  PUSHBUTTON_PIN =  7;                                           // Pin for pushbutton connector pin //
-const uint8_t  RED_PIN        = 11;                                           // Red LED PWM pin. This is grounded//
-const uint8_t  GREEN_PIN      = 10;                                           // Green LED PWM pin. Grounded      //
-const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Grounded       //
+const uint8_t  RED_PIN        = 11;                                           // Red LED PWM pin. Ground = FULL   //
+const uint8_t  GREEN_PIN      = 10;                                           // Green LED PWM pin. Ground = FULL //
+const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Ground = FULL  //
                                                                               //----------------------------------//
 EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,              // Instantiate class defining all   //
                      RED_PIN, GREEN_PIN, BLUE_PIN);                           // of the pins that are used        //
@@ -43,8 +47,8 @@ void setup() {                                                                //
   Serial.begin(115200);                                                       // Initialize Serial I/O at speed   //
   delay(1000);                                                                // Wait 1 second for initialization //
   Serial.println("Starting Encoder Program...");                              //                                  //
-} // of method setup()                                                        //----------------------------------//
-
+} // of method setup()                                                        //                                  //
+                                                                              //----------------------------------//
 void loop(){                                                                  // Main program infinite loop       //
 static int last = Encoder.GetEncoderValue();                                  // Store previous Encoder value     //
    uint8_t presses = Encoder.GetButton();                                     // See how often button was pressed //

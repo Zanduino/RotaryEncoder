@@ -1,7 +1,7 @@
 /*******************************************************************************************************************
 ** This program defines the RotaryEncoder class. See the "Encoder.h" file for program documentation               **
 *******************************************************************************************************************/
-#include "Encoder.h"                                                          // Include the header file          //
+#include "RotaryEncoder.h"                                                    // Include the header file          //
 EncoderClass* EncoderClass::ClassPtr;                                         // Declare Class Reference pointer  //
 /*******************************************************************************************************************
 ** The class constructor stores the pin values as part of the initializer and then uses an indirect method to     **
@@ -10,23 +10,27 @@ EncoderClass* EncoderClass::ClassPtr;                                         //
 ** pointer to the class with an offset to the appropriate function to call the correct function.                  **
 *******************************************************************************************************************/
 EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     // Class constructor                //
-                           const uint8_t PushbuttonPin, const uint8_t RedPin, //                                  //
-                           const uint8_t GreenPin, const uint8_t BluePin ) :  //                                  //
+                           const uint8_t PushbuttonPin,                       //                                  //
+                           const uint8_t RedPin=255,const uint8_t GreenPin=255,//                                 //
+                           const uint8_t BluePin=255 ) :                      //                                  //
       _LeftPin(LeftPin), _RightPin(RightPin), _PushbuttonPin(PushbuttonPin),  //                                  //
       _RedPin(RedPin), _GreenPin(GreenPin), _BluePin(BluePin) {               //                                  //
   pinMode(RedPin,OUTPUT); pinMode(GreenPin,OUTPUT); pinMode(BluePin,OUTPUT);  // Set LED color pins to output     //
-  analogWrite(RedPin,255);analogWrite(GreenPin,255);analogWrite(BluePin,255); // Ensure LEDs are off at start     //
+  if (RedPin!=255)   analogWrite(RedPin,255);                                 // If the LED pins are defined,     //
+  if (GreenPin!=255) analogWrite(GreenPin,255);                               // then turn them off at the start  //
+  if (BluePin!=255)  analogWrite(BluePin,255);                                //                                  //
   pinMode(LeftPin, INPUT);                                                    // Define encoder pins as input     //
   pinMode(RightPin, INPUT);                                                   // Define encoder pins as input     //
   pinMode(PushbuttonPin, INPUT);                                              // Define pushbutton pin as input   //
   digitalWrite(LeftPin, HIGH);                                                // Turn the pull-up resistor on     //
   digitalWrite(RightPin, HIGH);                                               // Turn the pull-up resistor on     //
   _EncoderValue = 0;                                                          // Reset in case it was changed     //
-  ClassPtr = this;                                                            // pointer to current instance      //
+  ClassPtr      = this;                                                       // pointer to current instance      //
   attachInterrupt(digitalPinToInterrupt(LeftPin),RotateISR,CHANGE);           // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(RightPin),RotateISR,CHANGE);          // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(PushbuttonPin),PushButtonISR,RISING); // Attach static internal function  //
-  SetFade(true);                                                              // turn on fader and interrupt      //
+  if (RedPin|GreenPin|BluePin==255) SetFade(false);                           // If no LEDs, turn off fader       //
+                               else SetFade(true);                            // turn on fader and interrupt      //
 } // of class constructor                                                     //                                  //
 ISR(TIMER0_COMPA_vect) {EncoderClass::TimerISR();}                            // Call the ISR every millisecond   //
 static void EncoderClass::PushButtonISR(){ClassPtr->PushButtonHandler();}     // Redirect to real handler function//

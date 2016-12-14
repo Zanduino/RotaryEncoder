@@ -37,19 +37,20 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.1  2016-12-14 Arnd@SV-Zanshin.Com Allowed defaults for LEDs on class constructer                           **
 ** 1.0.b3 2016-12-13 Arnd@SV-Zanshin.Com Made fading start only after the maximum setting was reached             **
 ** 1.0.b2 2016-12-12 Arnd@SV-Zanshin.Com Fixed interrupt calls                                                    **
 ** 1.0.b1 2016-12-04 Arnd@SV-Zanshin.Com Initial coding                                                           **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include "Arduino.h"                                                          // Arduino data type definitions    //
-#ifndef Encoder_h                                                             // Guard code definition            //
-  #define Encoder_h                                                           // Define the name inside guard code//
+#ifndef RotaryEncoder_h                                                       // Guard code definition            //
+  #define RotaryEncoder_h                                                     // Define the name inside guard code//
   class EncoderClass {                                                        //----------------------------------//
     public:                                                                   // Publicly visible class members   //
       EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,             // Class constructor                //
-                   const uint8_t PushbuttonPin, const uint8_t RedPin,         //                                  //
-                   const uint8_t GreenPin,const uint8_t BluePin);             //                                  //
+                   const uint8_t PushbuttonPin, const uint8_t RedPin=255,     //                                  //
+                   const uint8_t GreenPin=255,const uint8_t BluePin=255);     //                                  //
       uint8_t     GetButton();                                                // Returns number of button pushes  //
       int16_t     GetEncoderValue();                                          // Return the encoder value         //
       void        SetEncoderValue(const int16_t NewValue = 0);                // Set the encoder value            //
