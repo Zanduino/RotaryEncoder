@@ -1,5 +1,5 @@
 /*******************************************************************************************************************
-** This program defines the RotaryEncoder class.                                                                  **
+** This program defines the RotaryEncoder class. See the "Encoder.h" file for program documentation               **
 *******************************************************************************************************************/
 #include "Encoder.h"                                                          // Include the header file          //
 EncoderClass* EncoderClass::ClassPtr;                                         // Declare Class Reference pointer  //
