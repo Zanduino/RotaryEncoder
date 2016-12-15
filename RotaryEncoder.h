@@ -54,6 +54,7 @@
                    const uint8_t GreenPin=255,const uint8_t BluePin=255);     //                                  //
       uint8_t     GetButton();                                                // Returns number of button pushes  //
       int16_t     GetEncoderValue();                                          // Return the encoder value         //
+      static void TimerISR();                                                 // Interim ISR calls real handler   //
       void        SetEncoderValue(const int16_t NewValue = 0);                // Set the encoder value            //
       void        SetLEDState(const bool Status);                             // Turns encoder LEDs on or off     //
       void        SetFade(const bool FadeState);                              // Sets the fader state             //
@@ -64,7 +65,6 @@
                                      const uint8_t B);                        // when rotated clockwise           //
       void        SetCCWTurnColor   (const uint8_t R, const uint8_t G,        // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when rotated counterclockwise    //
-      static void TimerISR();                                                 // Interim ISR calls real handler   //
     private:                                                                  // Declare private class members    //
       static void PushButtonISR();                                            // Interim ISR calls real handler   //
       static void RotateISR();                                                // Interim ISR calls real handler   //
