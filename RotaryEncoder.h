@@ -57,12 +57,12 @@
       void        SetEncoderValue(const int16_t NewValue = 0);                // Set the encoder value            //
       void        SetLEDState(const bool Status);                             // Turns encoder LEDs on or off     //
       void        SetFade(const bool FadeState);                              // Sets the fader state             //
-      void        SetColor(const uint8_t R,const uint8_t G,const uint8_t B);  // Sets the LED colors              //
-      void        SetPushButtonColor(const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
+      void        SetColor(const uint8_t R, const uint8_t G, const uint8_t B);// Sets the LED colors              //
+      void        SetPushButtonColor(const uint8_t R, const uint8_t G,        // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when the pushbutton is pressed   //
-      void        SetCWTurnColor    (const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
+      void        SetCWTurnColor    (const uint8_t R, const uint8_t G,        // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when rotated clockwise           //
-      void        SetCCWTurnColor   (const uint8_t R,const uint8_t G,         // Sets the RGB values displayed    //
+      void        SetCCWTurnColor   (const uint8_t R, const uint8_t G,        // Sets the RGB values displayed    //
                                      const uint8_t B);                        // when rotated counterclockwise    //
       static void TimerISR();                                                 // Interim ISR calls real handler   //
     private:                                                                  // Declare private class members    //
@@ -78,25 +78,25 @@
       uint8_t _RedPin;                                                        //                                  //
       uint8_t _GreenPin;                                                      //                                  //
       uint8_t _BluePin;                                                       //                                  //
-      bool    _Fade                  =  true;                                 // Default to fade to dark          //
-      bool    _LEDOn                 =  true;                                 // Default to display LED lights    //
-      volatile bool _LEDChanged      =  true;                                 // Set when rotate or click changes //
-      volatile uint8_t _ButtonPresses =    0;                                 // The current number of pushes     //
-      volatile long _EncoderValue    =     0;                                 // The current encoder value        //
-      uint8_t _RedActual             =   255;                                 // Actual value for the Red LED     //
-      uint8_t _RedTarget             =   255;                                 // Target value for the Red LED     //
-      uint8_t _GreenActual           =   255;                                 // Actual value for the Green LED   //
-      uint8_t _GreenTarget           =   255;                                 // Target value for the Green LED   //
-      uint8_t _BlueActual            =   255;                                 // Actual value for the Blue LED    //
-      uint8_t _BlueTarget            =   255;                                 // Target value for the Blue LED    //
-      uint8_t _ColorPushButtonR      =     0;                                 // Default pushbutton to pure Red   //
-      uint8_t _ColorPushButtonG      =   255;                                 //                                  //
-      uint8_t _ColorPushButtonB      =   255;                                 //                                  //
-      uint8_t _ColorCWR              =   255;                                 // Color for clockwise turns        //
-      uint8_t _ColorCWG              =     0;                                 //                                  //
-      uint8_t _ColorCWB              =   255;                                 //                                  //
-      uint8_t _ColorCCWR             =   255;                                 // Color for counterclockwise turns //
-      uint8_t _ColorCCWG             =   255;                                 //                                  //
-      uint8_t _ColorCCWB             =     0;                                 //                                  //
+      bool    _Fade                   =  true;                                // Default to fade to dark          //
+      bool    _LEDOn                  =  true;                                // Default to display LED lights    //
+      volatile bool _LEDChanged       =  true;                                // Set when rotate or click changes //
+      volatile uint8_t _ButtonPresses =     0;                                // The current number of pushes     //
+      volatile long _EncoderValue     =     0;                                // The current encoder value        //
+      uint8_t _RedActual              =   255;                                // Actual value for the Red LED     //
+      uint8_t _RedTarget              =   255;                                // Target value for the Red LED     //
+      uint8_t _GreenActual            =   255;                                // Actual value for the Green LED   //
+      uint8_t _GreenTarget            =   255;                                // Target value for the Green LED   //
+      uint8_t _BlueActual             =   255;                                // Actual value for the Blue LED    //
+      uint8_t _BlueTarget             =   255;                                // Target value for the Blue LED    //
+      uint8_t _ColorPushButtonR       =     0;                                // Default pushbutton to pure Red   //
+      uint8_t _ColorPushButtonG       =   255;                                //                                  //
+      uint8_t _ColorPushButtonB       =   255;                                //                                  //
+      uint8_t _ColorCWR               =   255;                                // Color for clockwise turns        //
+      uint8_t _ColorCWG               =     0;                                //                                  //
+      uint8_t _ColorCWB               =   255;                                //                                  //
+      uint8_t _ColorCCWR              =   255;                                // Color for counterclockwise turns //
+      uint8_t _ColorCCWG              =   255;                                //                                  //
+      uint8_t _ColorCCWB              =     0;                                //                                  //
   }; // of class header definition for EncoderClass                           //----------------------------------//
 #endif

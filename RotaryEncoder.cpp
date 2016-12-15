@@ -1,5 +1,5 @@
 /*******************************************************************************************************************
-** This program defines the RotaryEncoder class. See the "Encoder.h" file for program documentation               **
+** This program defines the RotaryEncoder class. See the "Encoder.h" file for program documentation and versions  **
 *******************************************************************************************************************/
 #include "RotaryEncoder.h"                                                    // Include the header file          //
 EncoderClass* EncoderClass::ClassPtr;                                         // Declare Class Reference pointer  //
@@ -63,7 +63,6 @@ void EncoderClass::TimerHandler() {                                           //
     analogWrite(_BluePin,_BlueActual);                                        // Blue values                      //
   } // of if-then we need to do something                                     //                                  //
 } // of method FaderButtonHandler()                                           //                                  //
-
 /*******************************************************************************************************************
 ** function PushButtonHandler() is called when the interrupt occurs on a rising signal. Debouncing is done in the **
 ** hardware but we'll also add some checking here. The _ButtonPushed flag is cleared when the ButtonPushed()      **
@@ -74,13 +73,12 @@ void EncoderClass::PushButtonHandler() {                                      //
   if (millis()-lastPushed>150) {                                              // if time > 250ms then allow set   //
     _ButtonPresses++;                                                         // Increment the counter            //
     _LEDChanged   = true;                                                     // We are changing target values    //
-    lastPushed    = millis();                                                 // Store new pushtime               //
+    lastPushed    = millis();                                                 // Store new push button time       //
     _RedTarget    = _ColorPushButtonR;                                        // Set target color                 //
     _GreenTarget  = _ColorPushButtonG;                                        // Set target color                 //
     _BlueTarget   = _ColorPushButtonB;                                        // Set target color                 //
   } // of if-then we have a valid pushbutton event                            //                                  //
 } // of method PushButtonHandler()                                            //                                  //
-
 /*******************************************************************************************************************
 ** function RotateHandler() is the actual ISR called when a pin change on the left or right pin is detected. The  **
 ** quadrature values for the 2 pins are read and the two bits are stored in the "encoded" variable. This is ORd   **
@@ -107,7 +105,6 @@ void EncoderClass::PushButtonHandler() {                                      //
     } // of if-then a CCW turn                                                //                                  //
     lastEncoded = encoded;                                                    // store the value for next time    //
   } // of method RotateHandler()                                              //                                  //
-
 /*******************************************************************************************************************
 ** function ButtonPushes() returns number of button pushes since the last call and resets the value               **
 *******************************************************************************************************************/
@@ -117,7 +114,7 @@ uint8_t EncoderClass::GetButton() {                                           //
   return(returnValue);                                                        //                                  //
 } // of method GetButton()                                                    //                                  //
 /*******************************************************************************************************************
-** function SetColor() is called to set the RGB values to set when the button is pushed                 **
+** function SetColor() is called to set the RGB values to set when the button is pushed                           **
 *******************************************************************************************************************/
 void EncoderClass::SetColor(const uint8_t R,const uint8_t G,const uint8_t B) {//                                  //
   _RedTarget   = R;                                                           // set internal values              //
