@@ -18,7 +18,11 @@ Likewise the 3 pins used for the Red, Green and Blue LED lights need to be PWM-c
 rotary encoder uses a common cathode (+) pin, so the 3 lights are driven to ground for full power and high for "OFF"; meaning an analog 
 write of "255" turns the respective LED off and an analog write of "0" turns it on at full power.
 
-Fading of the LEDs is done by piggy-backing off the timer0, which is used by the Arduino millis() function. 
+Fading of the LEDs is done by using the timer0, which is used by the Arduino millis() function and fires approximately every millisecond. 
+
+Sample breadboard application:
+
+<img src="https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.png" width="100%"/>
 
 See the [Wiki pages for details](https://github.com/SV-Zanshin/RotaryEncoder/wiki) of the class and the variables / functions accessible in it.
 
