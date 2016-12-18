@@ -29,10 +29,16 @@ EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     //
   attachInterrupt(digitalPinToInterrupt(LeftPin),RotateISR,CHANGE);           // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(RightPin),RotateISR,CHANGE);          // Attach static internal function  //
   attachInterrupt(digitalPinToInterrupt(PushbuttonPin),PushButtonISR,RISING); // Attach static internal function  //
-  if (RedPin==255&&GreenPin==255&&BluePin==255) SetFade(false);               // If no LEDs, turn off fader       //
-                                           else SetFade(true);                // turn on fader and interrupt      //
+  if (RedPin==255&&GreenPin==255&&BluePin==255) SetFadeRate(0);               // If no LEDs, turn off fader       //
+                                           else SetFadeRate(1);               // turn on fader to max speed       //
 } // of class constructor                                                     //                                  //
+/*******************************************************************************************************************
+** Define the 5 ISR (Interrupt Service Routines). These definitions are done as static functions which can be set **
+** directly as part of the Arduino IDE inside a class definition. They, in turn, redirect the interrupt to a class**
+** member function where the actual interrupt is handled                                                          **
+*******************************************************************************************************************/
 ISR(TIMER0_COMPA_vect) {EncoderClass::TimerISR();}                            // Call the ISR every millisecond   //
+ISR(TIMER0_COMPB_vect) {EncoderClass::TimerISR();}                            // Call the ISR every millisecond   //
 static void EncoderClass::PushButtonISR(){ClassPtr->PushButtonHandler();}     // Redirect to real handler function//
 static void EncoderClass::RotateISR()    {ClassPtr->RotateHandler();}         // Redirect to real handler function//
 static void EncoderClass::TimerISR()     {ClassPtr->TimerHandler();}          // Redirect to real handler function//
@@ -42,7 +48,7 @@ static void EncoderClass::TimerISR()     {ClassPtr->TimerHandler();}          //
 ** RGB LEDs of the device. It is also the only place where the actual PWM values for RGB are set.                 **
 *******************************************************************************************************************/
 void EncoderClass::TimerHandler() {                                           //                                  //
-  if (_LEDChanged||!(_RedActual==255&&_GreenActual==255&&_BlueActual==255)){  // only check if we need to         //
+  if (_LEDChanged || !(_RedActual==255&&_GreenActual==255&&_BlueActual==255)){// Only check if LEDs aren't off    //
     _LEDChanged = false;                                                      // Reset the value                  //
     if (_RedActual!=_RedTarget) {                                             // adjust accordingly               //
       if(_RedActual<_RedTarget) _RedActual++; else _RedActual--;              //                                  //
@@ -53,7 +59,7 @@ void EncoderClass::TimerHandler() {                                           //
     if (_BlueActual!=_BlueTarget) {                                           //                                  //
       if(_BlueTarget<_BlueTarget) _BlueActual++; else _BlueActual--;          //                                  //
     } // of if-then actual and target don't match                             //                                  //
-    if (_Fade) {                                                              // If we are fading colors, then    //
+    if (_FadeMillis!=0 && millis()%_FadeMillis==0 ) {                         // If we are fading colors, then    //
       if (_RedTarget  !=255&&_RedActual==_RedTarget) _RedTarget++;            // Fade Red if max has been reached //
       if (_GreenTarget!=255&&_GreenActual==_GreenTarget) _GreenTarget++;      // Fade Green          "   "        //
       if (_BlueTarget !=255&&_BlueActual==_BlueTarget) _BlueTarget++;         // Fade Blue           "   "        //
@@ -173,22 +179,31 @@ void EncoderClass::SetEncoderValue(const int16_t NewValue = 0) {              //
   _EncoderValue = NewValue;                                                   // Set the new value                //
 } // of method SetEncoderValue()                                              //                                  //
 /*******************************************************************************************************************
-** function SetFade() is called to turn the fade functionality on or off. The fade is done by turning on the      **
-** Timer0 interrupt. Timer 0 is used by the millis() function and is an 8-bit register with a clock divisor of 64 **
-** which triggers it to overflow at 976.5625Hz. The millis() function uses the TIMER0_OVF_vect so we can't use    **
-** that, so we set the TIMER0_COMPA_vect set to 0x01 which trigger when the value is equal to 1. This gives us a  **
-** pretty quick trigger rate which suffices to light and fade the LED lights                                      **
+** function SetFadeRate() is called to turn the fade functionality on or off and adjust the rate at which the fade**
+** occurs. The fade is done by accessing the Timer0 interrupt, which is used by the millis() function and is an   **
+** 8-bit register with a clock divisor of 64 which triggers it to overflow at a rate of 976.5625Hz, or roughly    **
+** every millisecond. We set the TIMER0_COMPA_vect to 0x01 which triggers when the value is equal to 64. This     **
+** then gives us an identical trigger speed but different trigger point to the millis() function which triggers   **
+** when the Timer0 overflows. The same setup is done for the TIMER0_COMPB_vect but that is set to trigger halfway **
+** along the full range of 255 at 192, thus giving an interrupt rate of 2 times per milli second. The FadeSpeed   **
+** equates to how many milliseconds ther are between incremental fades, the fastest is 1 which is every 1/2 milli-**
+** second, 2 is every millisecond, etc. Each time the trigger is reached all of the LED values which are not "off"**
+** are dimmed by 1/255 of the total value. A setting of 10 would fade the LEDs from full on to OFF 1/255 of their **
+** brightness in 1.28 seconds                                                                                     **
 *******************************************************************************************************************/
-void EncoderClass::SetFade(const bool FadeState) {                            //                                  //
-  _Fade = FadeState;                                                          // Set the private variable to value//
-  if (FadeState) {                                                            // If turning on, set the ISR       //
+void EncoderClass::SetFadeRate(const uint8_t FadeSpeed) {                     //                                  //
+  _FadeMillis = FadeSpeed;                                                    // Set the private variable to value//
+  if (FadeSpeed) {                                                            // If turning on, set the ISR       //
     cli();                                                                    // Disable interrupts               //
-    OCR0A   = 0x01;                                                           // Comparison register setup to 1   //
+    OCR0A   = 0x40;                                                           // Comparison register A to 64      //
+    OCR0B   = 0xC0;                                                           // Comparison register B to 192     //
     TIMSK0 |= _BV(OCIE0A);                                                    // TIMER0_COMPA trigger on 0x01     //
+    TIMSK0 |= _BV(OCIE0B);                                                    // TIMER0_COMPB trigger on 0x80     //
     sei();                                                                    // Enable interrupts                //
   } else {                                                                    // If turning off, unset the ISR    //
     cli();                                                                    // Disable interrupts               //
     TIMSK0 &= ~_BV(OCIE0A);                                                   // TIMER0_COMPA trigger off         //
+    TIMSK0 &= ~_BV(OCIE0B);                                                   // TIMER0_COMPB trigger off         //
     sei();                                                                    // Enable interrupts                //
   } // of if-then-else we need to turn fading on or off                       //                                  //
-} // of method SetColor                                                       //                                  //
+} // of method SetFadeRate                                                    //                                  //
