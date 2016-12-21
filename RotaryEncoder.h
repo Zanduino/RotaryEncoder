@@ -46,6 +46,7 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.3  2016-12-21 Arnd@SV-Zanshin.Com Corrected volatile variables and fixed SetColor() call                   **
 ** 1.0.2  2016-12-18 Arnd@SV-Zanshin.Com Changed SetFade() to SetFadeRate() function to alter the fade speed      **
 ** 1.0.1  2016-12-14 Arnd@SV-Zanshin.Com Fixed error on condition to turn off LED lights.                         **
 ** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Allowed defaults for LEDs on class constructer                           **
@@ -93,12 +94,12 @@
       volatile bool _LEDChanged       =  true;                                // Set when rotate or click changes //
       volatile uint8_t _ButtonPresses =     0;                                // The current number of pushes     //
       volatile long _EncoderValue     =     0;                                // The current encoder value        //
-      uint8_t _RedActual              =   255;                                // Actual value for the Red LED     //
-      uint8_t _RedTarget              =   255;                                // Target value for the Red LED     //
-      uint8_t _GreenActual            =   255;                                // Actual value for the Green LED   //
-      uint8_t _GreenTarget            =   255;                                // Target value for the Green LED   //
-      uint8_t _BlueActual             =   255;                                // Actual value for the Blue LED    //
-      uint8_t _BlueTarget             =   255;                                // Target value for the Blue LED    //
+      volatile uint8_t _RedActual     =   255;                                // Actual value for the Red LED     //
+      volatile uint8_t _RedTarget     =   255;                                // Target value for the Red LED     //
+      volatile uint8_t _GreenActual   =   255;                                // Actual value for the Green LED   //
+      volatile uint8_t _GreenTarget   =   255;                                // Target value for the Green LED   //
+      volatile uint8_t _BlueActual    =   255;                                // Actual value for the Blue LED    //
+      volatile uint8_t _BlueTarget    =   255;                                // Target value for the Blue LED    //
       uint8_t _ColorPushButtonR       =     0;                                // Default pushbutton to pure Red   //
       uint8_t _ColorPushButtonG       =   255;                                //                                  //
       uint8_t _ColorPushButtonB       =   255;                                //                                  //

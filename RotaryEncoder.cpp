@@ -48,25 +48,26 @@ static void EncoderClass::TimerISR()     {ClassPtr->TimerHandler();}          //
 ** RGB LEDs of the device. It is also the only place where the actual PWM values for RGB are set.                 **
 *******************************************************************************************************************/
 void EncoderClass::TimerHandler() {                                           //                                  //
-  if (_LEDChanged || !(_RedActual==255&&_GreenActual==255&&_BlueActual==255)){// Only check if LEDs aren't off    //
-    _LEDChanged = false;                                                      // Reset the value                  //
-    if (_RedActual!=_RedTarget) {                                             // adjust accordingly               //
-      if(_RedActual<_RedTarget) _RedActual++; else _RedActual--;              //                                  //
-    } // of if-then actual and target don't match                             //                                  //
-    if (_GreenActual!=_GreenTarget) {                                         //                                  //
-      if(_GreenActual<_GreenTarget) _GreenActual++; else _GreenActual--;      //                                  //
-    } // of if-then actual and target don't match                             //                                  //
-    if (_BlueActual!=_BlueTarget) {                                           //                                  //
-      if(_BlueTarget<_BlueTarget) _BlueActual++; else _BlueActual--;          //                                  //
-    } // of if-then actual and target don't match                             //                                  //
-    if (_FadeMillis!=0 && millis()%_FadeMillis==0 ) {                         // If we are fading colors, then    //
+  if (_LEDChanged ||                                                          // Only check if LEDs aren't off    //
+      !(_RedActual==255 && _GreenActual==255 && _BlueActual==255)) {          //                                  //
+    if (millis()%_FadeMillis==0 ) {                                           // If we are fading colors, then    //
+      _LEDChanged = false;                                                    // Reset the value                  //
+      if (_RedActual!=_RedTarget) {                                           // adjust accordingly               //
+        if(_RedActual<_RedTarget) _RedActual++; else _RedActual--;            //                                  //
+      } // of if-then actual and target don't match                           //                                  //
+      if (_GreenActual!=_GreenTarget) {                                       //                                  //
+        if(_GreenActual<_GreenTarget) _GreenActual++; else _GreenActual--;    //                                  //
+      } // of if-then actual and target don't match                           //                                  //
+      if (_BlueActual!=_BlueTarget) {                                         //                                  //
+        if(_BlueTarget<_BlueTarget) _BlueActual++; else _BlueActual--;        //                                  //
+      } // of if-then actual and target don't match                           //                                  //
       if (_RedTarget  !=255&&_RedActual==_RedTarget) _RedTarget++;            // Fade Red if max has been reached //
       if (_GreenTarget!=255&&_GreenActual==_GreenTarget) _GreenTarget++;      // Fade Green          "   "        //
       if (_BlueTarget !=255&&_BlueActual==_BlueTarget) _BlueTarget++;         // Fade Blue           "   "        //
+      analogWrite(_RedPin,_RedActual);                                        // show the Red,                    //
+      analogWrite(_GreenPin,_GreenActual);                                    // Green, and                       //
+      analogWrite(_BluePin,_BlueActual);                                      // Blue values                      //
     } // of if-then we want to fade LED brightness                            //                                  //
-    analogWrite(_RedPin,_RedActual);                                          // show the Red,                    //
-    analogWrite(_GreenPin,_GreenActual);                                      // Green, and                       //
-    analogWrite(_BluePin,_BlueActual);                                        // Blue values                      //
   } // of if-then we need to do something                                     //                                  //
 } // of method FaderButtonHandler()                                           //                                  //
 /*******************************************************************************************************************
@@ -83,6 +84,11 @@ void EncoderClass::PushButtonHandler() {                                      //
     _RedTarget    = _ColorPushButtonR;                                        // Set target color                 //
     _GreenTarget  = _ColorPushButtonG;                                        // Set target color                 //
     _BlueTarget   = _ColorPushButtonB;                                        // Set target color                 //
+    if (_FadeMillis==0) {                                                     // Manually set if no fade          //
+      analogWrite(_RedPin,_RedTarget);                                        // show the Red,                    //
+      analogWrite(_GreenPin,_GreenTarget);                                    // Green, and                       //
+      analogWrite(_BluePin,_BlueTarget);                                      // Blue values                      //
+    } // of if fading is turned off                                           //                                  //
   } // of if-then we have a valid pushbutton event                            //                                  //
 } // of method PushButtonHandler()                                            //                                  //
 /*******************************************************************************************************************
@@ -110,6 +116,11 @@ void EncoderClass::PushButtonHandler() {                                      //
       _BlueTarget   = _ColorCCWB;                                             // Set target color                 //
     } // of if-then a CCW turn                                                //                                  //
     lastEncoded = encoded;                                                    // store the value for next time    //
+    if (_FadeMillis==0) {                                                     // Manually set if no fade          //
+      analogWrite(_RedPin,_RedTarget);                                        // show the Red,                    //
+      analogWrite(_GreenPin,_GreenTarget);                                    // Green, and                       //
+      analogWrite(_BluePin,_BlueTarget);                                      // Blue values                      //
+    } // of if fading is turned off                                           //                                  //
   } // of method RotateHandler()                                              //                                  //
 /*******************************************************************************************************************
 ** function ButtonPushes() returns number of button pushes since the last call and resets the value               **
@@ -123,9 +134,18 @@ uint8_t EncoderClass::GetButton() {                                           //
 ** function SetColor() is called to set the RGB values to set when the button is pushed                           **
 *******************************************************************************************************************/
 void EncoderClass::SetColor(const uint8_t R,const uint8_t G,const uint8_t B) {//                                  //
+  _RedActual   = R;                                                           // set internal values              //
+  _GreenActual = G;                                                           // set internal values              //
+  _BlueActual  = B;                                                           // set internal values              //
   _RedTarget   = R;                                                           // set internal values              //
   _GreenTarget = G;                                                           // set internal values              //
   _BlueTarget  = B;                                                           // set internal values              //
+  _LEDChanged  = true;                                                        // Mark that we have a change       //
+  if (_FadeMillis==0) {                                                       // Manually set if no fade          //
+    analogWrite(_RedPin,_RedTarget);                                          // show the Red,                    //
+    analogWrite(_GreenPin,_GreenTarget);                                      // Green, and                       //
+    analogWrite(_BluePin,_BlueTarget);                                        // Blue values                      //
+  } // of if fading is turned off                                             //                                  //
 } // of method SetColor                                                       //                                  //
 /*******************************************************************************************************************
 ** function SetPushButtonColor() is called to set the RGB values to set when the button is pushed                 **

@@ -35,8 +35,8 @@
 *******************************************************************************************************************/
 #include <RotaryEncoder.h>                                                    // Include Encoder library          //
                                                                               //----------------------------------//
-const uint8_t  ROTARY_PIN_1   =  2;                                           // Pin for left rotary encoder pin  //
-const uint8_t  ROTARY_PIN_2   =  3;                                           // Pin for right rotary encoder pin //
+const uint8_t  ROTARY_PIN_1   =  0;                                           // Pin for left rotary encoder pin  //
+const uint8_t  ROTARY_PIN_2   =  1;                                           // Pin for right rotary encoder pin //
 const uint8_t  PUSHBUTTON_PIN =  7;                                           // Pin for pushbutton connector pin //
 const uint8_t  RED_PIN        = 11;                                           // Red LED PWM pin. Ground = FULL   //
 const uint8_t  GREEN_PIN      = 10;                                           // Green LED PWM pin. Ground = FULL //
@@ -46,15 +46,18 @@ EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,              //
                      RED_PIN, GREEN_PIN, BLUE_PIN);                           // of the pins that are used        //
                                                                               //----------------------------------//
 void setup() {                                                                // Start One-Time run section       //
+  Encoder.SetFadeRate(0);                                                     // Turn off fading                  //
   Encoder.SetColor(0,0,0);                                                    // Set LED full on, allow to fade   //
-  Encoder.SetFadeRate(1);                                                     // Set fastest fade rate (default)  //
   Serial.begin(115200);                                                       // Initialize Serial I/O at speed   //
-  delay(1000);                                                                // Wait 1 second for initialization //
+  delay(3000);                                                                // Wait 3 seconds for initialization//
+  Encoder.SetFadeRate(20);                                                    // Set slow 20ms per tick fade rate //
   Serial.println(F("Starting Encoder Program..."));                           //                                  //
   Serial.println(F("Default clockwise        = Green,"));                     //                                  //
   Serial.println(F("Default Counterclockwise = Blue,"));                      //                                  //
-  Serial.println(F("Default Pushbutton        = Red,"));                      //                                  //
+  Serial.println(F("Default Pushbutton       = Red,"));                       //                                  //
   Serial.println(F("Default fast fade rate."));                               //                                  //
+  delay(2000);                                                                // Give the fade time to work       //
+  Encoder.SetFadeRate(3);                                                     // Set fast 3ms fade rate           //
 } // of method setup()                                                        //                                  //
                                                                               //----------------------------------//
 void loop(){                                                                  // Main program infinite loop       //
