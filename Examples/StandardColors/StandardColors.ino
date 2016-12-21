@@ -1,6 +1,7 @@
 /*******************************************************************************************************************
-** This program defines the RotaryEncoder class header. It is published on GitHub and full description of the     **
-** class as well as the public function descriptions can be found at the GitHub wiki pages located at:            **
+** This program is a simple example showing the default colors for clockwise rotation, counterclockwise rotation, **
+** and pushbutton with the default fade rate turned on. The presses and rotation values are send to the serial    **
+** port.                                                                                                          **
 **                                                                                                                **
 **                              https://github.com/SV-Zanshin/RotaryEncoder/wiki                                  **
 **                                                                                                                **
@@ -27,8 +28,9 @@
 **                                                                                                                **
 ** Vers.  Date       Developer           Comments                                                                 **
 ** ====== ========== =================== ======================================================================== **
+** 1.0.1  2016-12-21 Arnd@SV-Zanshin.Com Added some extra output and program code                                 **
 ** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Changed include from "Encoder" to "RotaryEncoder", added comments        **
-** 1.0.0  2016-12-13 Arnd@SV-Zanshin.Com Initial coding                                                           **
+** 1.0.0b 2016-12-13 Arnd@SV-Zanshin.Com Initial coding                                                           **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include <RotaryEncoder.h>                                                    // Include Encoder library          //
@@ -44,9 +46,15 @@ EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,              //
                      RED_PIN, GREEN_PIN, BLUE_PIN);                           // of the pins that are used        //
                                                                               //----------------------------------//
 void setup() {                                                                // Start One-Time run section       //
+  Encoder.SetColor(0,0,0);                                                    // Set LED full on, allow to fade   //
+  Encoder.SetFadeRate(1);                                                     // Set fastest fade rate (default)  //
   Serial.begin(115200);                                                       // Initialize Serial I/O at speed   //
   delay(1000);                                                                // Wait 1 second for initialization //
-  Serial.println("Starting Encoder Program...");                              //                                  //
+  Serial.println(F("Starting Encoder Program..."));                           //                                  //
+  Serial.println(F("Default clockwise        = Green,"));                     //                                  //
+  Serial.println(F("Default Counterclockwise = Blue,"));                      //                                  //
+  Serial.println(F("Default Pushbutton        = Red,"));                      //                                  //
+  Serial.println(F("Default fast fade rate."));                               //                                  //
 } // of method setup()                                                        //                                  //
                                                                               //----------------------------------//
 void loop(){                                                                  // Main program infinite loop       //
@@ -54,12 +62,12 @@ static int last = Encoder.GetEncoderValue();                                  //
    uint8_t presses = Encoder.GetButton();                                     // See how often button was pressed //
    if (presses>0) {                                                           // If the button was pushed,        //
      Serial.print(presses);                                                   // Display the value                //
-     if (presses==1) Serial.println(" press.");                               //                                  //
-                else Serial.println(" presses.");                             //                                  //
+     if (presses==1) Serial.println(F(" press."));                            //                                  //
+                else Serial.println(F(" presses."));                          //                                  //
    } // of if-then we have one or more button presses                         //                                  //
    if (Encoder.GetEncoderValue()!=last) {                                     // If the reading has changed then  //
      last = Encoder.GetEncoderValue();                                        // display the new value            //
-     Serial.print("Encoder position is ");                                    //                                  //
+     Serial.print(F("Encoder position is "));                                 //                                  //
      Serial.println(last);                                                    //                                  //
    } // of if-then we have a changed value                                    //                                  //
 } // of method loop()                                                         //----------------------------------//
