@@ -2,4 +2,5 @@
 examples/ linguist-documentation=false
 *.ino linguist-language=Arduino
 *.c linguist-language=Arduino
+*.cpp linguist-language=Arduino
 *.h linguist-language=Arduino
