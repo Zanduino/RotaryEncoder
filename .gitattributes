@@ -1,5 +1,13 @@
-# Scan Examples subdirectory for source files
-Examples/CubigelExample/CubigelExample.ino linguist-documentation=false
+##########################################################################################
+# This section defines which file types are associated with which linguist-documentation #
+# language types. Without this, linguist detects this as mere c++ code and not as an     #
+# Arduino library                                                                        #
+##########################################################################################
+examples/ linguist-documentation=false
+*.ino linguist-language=Arduino
+*.c linguist-language=Arduino
+*.cpp linguist-language=Arduino
+*.h linguist-language=Arduino
 
 # Auto detect text files and perform LF normalization
 * text=auto
