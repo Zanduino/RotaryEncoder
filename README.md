@@ -1,5 +1,5 @@
 # RotaryEncoder
-<img src="https://cdn.sparkfun.com//assets/parts/6/2/1/9/10982-01a.jpg" width="175" align="right"/> *Arduino* library which defines 
+<img src="https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.jpg" width="175" align="right"/> *Arduino* library which defines 
 methods for accessing the 3-Color LED Rotary Encoder. This is manufactured by Top-Up and other companies and is available from many 
 sources on the internet. The manufacturer's serial number is EC12PSD-017 and it can be found referenced at sources such as 
 https://www.sparkfun.com/products/10982 or https://www.proto-pic.co.uk/rotary-encoder-illuminated-rgb.html along with numerous other 
