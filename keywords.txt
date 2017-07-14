@@ -1,14 +1,26 @@
-Rotary		KEYWORD1
-Encoder		KEYWORD1
-COM-10982 KEYWORD1
-COM-10984 KEYWORD1
-Bourns    KEYWORD2
-PEL12T    KEYWORD1
-Sparkfun  KEYWORD2
-Library		KEYWORD2
-Quadrature	KEYWORD2
-LED			KEYWORD2
-RGB			KEYWORD2
-EC12PSD-017	KEYWORD2
-Top-Up		KEYWORD2
-Interrupt	KEYWORD2
+﻿###################################
+# Syntax Coloring Map for library #
+###################################
+
+################################
+# Classes/Datatypes (KEYWORD1) #
+################################
+EncoderClass	KEYWORD1
+
+####################################
+# Methods and Functions (KEYWORD2) #
+####################################
+GetButton		KEYWORD2
+GetEncoderValue		KEYWORD2
+TimerISR		KEYWORD2
+SetEncoderValue		KEYWORD2
+SetLEDState		KEYWORD2
+SetFadeRate		KEYWORD2
+SetColor		KEYWORD2
+SetPushButtonColor	KEYWORD2
+SetCWTurnColor		KEYWORD2
+SetCCWTurnColor		KEYWORD2
+
+########################
+# Constants (LITERAL1) #
+########################
