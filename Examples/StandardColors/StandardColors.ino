@@ -26,11 +26,11 @@
 ** GNU General Public License for more details. You should have received a copy of the GNU General Public License **
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.                                          **
 **                                                                                                                **
-** Vers.  Date       Developer           Comments                                                                 **
-** ====== ========== =================== ======================================================================== **
-** 1.0.1  2016-12-21 Arnd@SV-Zanshin.Com Added some extra output and program code                                 **
-** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Changed include from "Encoder" to "RotaryEncoder", added comments        **
-** 1.0.0b 2016-12-13 Arnd@SV-Zanshin.Com Initial coding                                                           **
+** Vers.  Date       Developer                     Comments                                                       **
+** ====== ========== ============================= ============================================================== **
+** 1.0.1  2016-12-21 https://github.com/SV-Zanshin Added extra output and program code                            **
+** 1.0.0  2016-12-14 https://github.com/SV-Zanshin Changed include name "RotaryEncoder", added more comments      **
+** 1.0.0b 2016-12-13 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include <RotaryEncoder.h>                                                    // Include Encoder library          //

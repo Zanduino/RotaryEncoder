@@ -44,15 +44,15 @@
 ** GNU General Public License for more details. You should have received a copy of the GNU General Public License **
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.                                          **
 **                                                                                                                **
-** Vers.  Date       Developer           Comments                                                                 **
-** ====== ========== =================== ======================================================================== **
-** 1.0.3  2016-12-21 Arnd@SV-Zanshin.Com Corrected volatile variables and fixed SetColor() call                   **
-** 1.0.2  2016-12-18 Arnd@SV-Zanshin.Com Changed SetFade() to SetFadeRate() function to alter the fade speed      **
-** 1.0.1  2016-12-14 Arnd@SV-Zanshin.Com Fixed error on condition to turn off LED lights.                         **
-** 1.0.0  2016-12-14 Arnd@SV-Zanshin.Com Allowed defaults for LEDs on class constructer                           **
-** 1.0.b3 2016-12-13 Arnd@SV-Zanshin.Com Made fading start only after the maximum setting was reached             **
-** 1.0.b2 2016-12-12 Arnd@SV-Zanshin.Com Fixed interrupt calls                                                    **
-** 1.0.b1 2016-12-04 Arnd@SV-Zanshin.Com Initial coding                                                           **
+** Vers.  Date       Developer                     Comments                                                       **
+** ====== ========== ============================= ============================================================== **
+** 1.0.3  2016-12-21 https://github.com/SV-Zanshin Corrected volatile variables and fixed SetColor() call         **
+** 1.0.2  2016-12-18 https://github.com/SV-Zanshin Changed SetFade() to SetFadeRate() function to alter fade speed**
+** 1.0.1  2016-12-14 https://github.com/SV-Zanshin Fixed error on condition to turn off LED lights.               **
+** 1.0.0  2016-12-14 https://github.com/SV-Zanshin Allowed defaults for LEDs on class constructer                 **
+** 1.0.b3 2016-12-13 https://github.com/SV-Zanshin Made fading start only after the maximum setting was reached   **
+** 1.0.b2 2016-12-12 https://github.com/SV-Zanshin Fixed interrupt calls                                          **
+** 1.0.b1 2016-12-04 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include "Arduino.h"                                                          // Arduino data type definitions    //
