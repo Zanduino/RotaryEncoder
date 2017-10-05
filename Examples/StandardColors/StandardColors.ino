@@ -28,30 +28,41 @@
 **                                                                                                                **
 ** Vers.  Date       Developer                     Comments                                                       **
 ** ====== ========== ============================= ============================================================== **
+** 1.0.2  2017-10-03 https://github.com/SV-Zanshin Added optional HW-Debounce to instantiation call               **
 ** 1.0.1  2016-12-21 https://github.com/SV-Zanshin Added extra output and program code                            **
 ** 1.0.0  2016-12-14 https://github.com/SV-Zanshin Changed include name "RotaryEncoder", added more comments      **
 ** 1.0.0b 2016-12-13 https://github.com/SV-Zanshin Initial coding                                                 **
 **                                                                                                                **
 *******************************************************************************************************************/
 #include <RotaryEncoder.h>                                                    // Include Encoder library          //
-                                                                              //----------------------------------//
+  
+/*                                                                            //----------------------------------//
 const uint8_t  ROTARY_PIN_1   =  0;                                           // Pin for left rotary encoder pin  //
 const uint8_t  ROTARY_PIN_2   =  1;                                           // Pin for right rotary encoder pin //
 const uint8_t  PUSHBUTTON_PIN =  7;                                           // Pin for pushbutton connector pin //
 const uint8_t  RED_PIN        = 11;                                           // Red LED PWM pin. Ground = FULL   //
 const uint8_t  GREEN_PIN      = 10;                                           // Green LED PWM pin. Ground = FULL //
 const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Ground = FULL  //
+*/
+const uint8_t  ROTARY_PIN_1   =  6;                                           // Pin for left rotary encoder pin  //
+const uint8_t  ROTARY_PIN_2   =  7;                                           // Pin for right rotary encoder pin //
+const uint8_t  PUSHBUTTON_PIN =  2;                                           // Pin for pushbutton connector pin //
+const uint8_t  RED_PIN        = 30;                                           // Red LED PWM pin. Ground = FULL   //
+const uint8_t  GREEN_PIN      =  8;                                           // Green LED PWM pin. Ground = FULL //
+const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Ground = FULL  //
                                                                               //----------------------------------//
 EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,              // Instantiate class defining all   //
-                     RED_PIN, GREEN_PIN, BLUE_PIN);                           // of the pins that are used        //
+                     RED_PIN, GREEN_PIN, BLUE_PIN, true);                     // of the pins that are used        //
+                                                                              // Using HW debounce, internal pull-//
+                                                                              // ups disabled                     //
                                                                               //----------------------------------//
 void setup() {                                                                // Start One-Time run section       //
+  Serial.println(F("Starting Encoder Program..."));                           //                                  //
   Encoder.SetFadeRate(0);                                                     // Turn off fading                  //
   Encoder.SetColor(0,0,0);                                                    // Set LED full on, allow to fade   //
   Serial.begin(115200);                                                       // Initialize Serial I/O at speed   //
   delay(3000);                                                                // Wait 3 seconds for initialization//
   Encoder.SetFadeRate(20);                                                    // Set slow 20ms per tick fade rate //
-  Serial.println(F("Starting Encoder Program..."));                           //                                  //
   Serial.println(F("Default clockwise        = Green,"));                     //                                  //
   Serial.println(F("Default Counterclockwise = Blue,"));                      //                                  //
   Serial.println(F("Default Pushbutton       = Red,"));                       //                                  //

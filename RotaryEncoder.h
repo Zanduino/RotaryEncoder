@@ -46,6 +46,7 @@
 **                                                                                                                **
 ** Vers.  Date       Developer                     Comments                                                       **
 ** ====== ========== ============================= ============================================================== **
+** 1.0.4  2017-10-03 https://github.com/SV-Zanshin Added optional hardware debounce switch on instantiation       **
 ** 1.0.3  2016-12-21 https://github.com/SV-Zanshin Corrected volatile variables and fixed SetColor() call         **
 ** 1.0.2  2016-12-18 https://github.com/SV-Zanshin Changed SetFade() to SetFadeRate() function to alter fade speed**
 ** 1.0.1  2016-12-14 https://github.com/SV-Zanshin Fixed error on condition to turn off LED lights.               **
@@ -62,7 +63,8 @@
     public:                                                                   // Publicly visible class members   //
       EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,             // Class constructor                //
                    const uint8_t PushbuttonPin, const uint8_t RedPin=255,     //                                  //
-                   const uint8_t GreenPin=255,const uint8_t BluePin=255);     //                                  //
+                   const uint8_t GreenPin=255,const uint8_t BluePin=255,      //                                  //
+                   const bool HWDebounce=false);                              //                                  //
       uint8_t     GetButton();                                                // Returns number of button pushes  //
       int16_t     GetEncoderValue();                                          // Return the encoder value         //
       static void TimerISR();                                                 // Interim ISR calls real handler   //

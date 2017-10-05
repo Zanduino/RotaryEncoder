@@ -12,7 +12,8 @@ EncoderClass* EncoderClass::ClassPtr;                                         //
 EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     // Class constructor                //
                            const uint8_t PushbuttonPin,                       //                                  //
                            const uint8_t RedPin=255,const uint8_t GreenPin=255,//                                 //
-                           const uint8_t BluePin=255 ) :                      //                                  //
+                           const uint8_t BluePin=255,                         //                                  //
+                           const bool    HWDebounce=false) :                  //                                  //
       _LeftPin(LeftPin), _RightPin(RightPin), _PushbuttonPin(PushbuttonPin),  //                                  //
       _RedPin(RedPin), _GreenPin(GreenPin), _BluePin(BluePin) {               //                                  //
   pinMode(RedPin,OUTPUT); pinMode(GreenPin,OUTPUT); pinMode(BluePin,OUTPUT);  // Set LED color pins to output     //
@@ -22,8 +23,10 @@ EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,     //
   pinMode(LeftPin, INPUT);                                                    // Define encoder pins as input     //
   pinMode(RightPin, INPUT);                                                   // Define encoder pins as input     //
   pinMode(PushbuttonPin, INPUT);                                              // Define pushbutton pin as input   //
-  digitalWrite(LeftPin, HIGH);                                                // Turn the pull-up resistor on     //
-  digitalWrite(RightPin, HIGH);                                               // Turn the pull-up resistor on     //
+  if (!HWDebounce) {                                                          // If SW debounce then enable pullup//
+    digitalWrite(LeftPin, HIGH);                                              // Turn the pull-up resistor on     //
+    digitalWrite(RightPin, HIGH);                                             // Turn the pull-up resistor on     //
+  } // of if-then hardware or software debounce                               //                                  //
   _EncoderValue = 0;                                                          // Reset in case it was changed     //
   ClassPtr      = this;                                                       // pointer to current instance      //
   attachInterrupt(digitalPinToInterrupt(LeftPin),RotateISR,CHANGE);           // Attach static internal function  //
