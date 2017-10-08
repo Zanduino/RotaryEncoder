@@ -209,10 +209,10 @@ void EncoderClass::SetEncoderValue(const int16_t NewValue = 0) {              //
 ** then gives us an identical trigger speed but different trigger point to the millis() function which triggers   **
 ** when the Timer0 overflows. The same setup is done for the TIMER0_COMPB_vect but that is set to trigger halfway **
 ** along the full range of 255 at 192, thus giving an interrupt rate of 2 times per milli second. The FadeSpeed   **
-** equates to how many milliseconds ther are between incremental fades, the fastest is 1 which is every 1/2 milli-**
-** second, 2 is every millisecond, etc. Each time the trigger is reached all of the LED values which are not "off"**
-** are dimmed by 1/255 of the total value. A setting of 10 would fade the LEDs from full on to OFF 1/255 of their **
-** brightness in 1.28 seconds                                                                                     **
+** equates to how many milliseconds there are between incremental fades, the fastest is 1 which is every 1/2      **
+** millisecond, 2 is every millisecond, etc. Each time the trigger is reached all of the LED values which are not **
+** "off" are dimmed by 1/255 of the total value. A setting of 10 would fade the LEDs from full on to OFF 1/255 of **
+** their brightness in 1.28 seconds                                                                               **
 *******************************************************************************************************************/
 void EncoderClass::SetFadeRate(const uint8_t FadeSpeed) {                     //                                  //
   _FadeMillis = FadeSpeed;                                                    // Set the private variable to value//

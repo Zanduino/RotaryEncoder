@@ -35,26 +35,17 @@
 **                                                                                                                **
 *******************************************************************************************************************/
 #include <RotaryEncoder.h>                                                    // Include Encoder library          //
-  
-/*                                                                            //----------------------------------//
 const uint8_t  ROTARY_PIN_1   =  0;                                           // Pin for left rotary encoder pin  //
 const uint8_t  ROTARY_PIN_2   =  1;                                           // Pin for right rotary encoder pin //
 const uint8_t  PUSHBUTTON_PIN =  7;                                           // Pin for pushbutton connector pin //
 const uint8_t  RED_PIN        = 11;                                           // Red LED PWM pin. Ground = FULL   //
 const uint8_t  GREEN_PIN      = 10;                                           // Green LED PWM pin. Ground = FULL //
 const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Ground = FULL  //
-*/
-const uint8_t  ROTARY_PIN_1   =  6;                                           // Pin for left rotary encoder pin  //
-const uint8_t  ROTARY_PIN_2   =  7;                                           // Pin for right rotary encoder pin //
-const uint8_t  PUSHBUTTON_PIN =  2;                                           // Pin for pushbutton connector pin //
-const uint8_t  RED_PIN        = 30;                                           // Red LED PWM pin. Ground = FULL   //
-const uint8_t  GREEN_PIN      =  8;                                           // Green LED PWM pin. Ground = FULL //
-const uint8_t  BLUE_PIN       =  9;                                           // Blue LED PWM pin. Ground = FULL  //
                                                                               //----------------------------------//
 EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,              // Instantiate class defining all   //
-                     RED_PIN, GREEN_PIN, BLUE_PIN, true);                     // of the pins that are used        //
-                                                                              // Using HW debounce, internal pull-//
-                                                                              // ups disabled                     //
+                     RED_PIN, GREEN_PIN, BLUE_PIN, false);                    // of the pins that are used        //
+                                                                              // If using HW de-bounce, internal  //
+                                                                              // pull-ups disabled else enabled   //
                                                                               //----------------------------------//
 void setup() {                                                                // Start One-Time run section       //
   Serial.println(F("Starting Encoder Program..."));                           //                                  //
