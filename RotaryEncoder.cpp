@@ -83,6 +83,7 @@ void EncoderClass::PushButtonHandler() {                                      //
   if (millis()-lastPushed>150) {                                              // if time > 250ms then allow set   //
     _ButtonPresses++;                                                         // Increment the counter            //
     _LEDChanged   = true;                                                     // We are changing target values    //
+    changed       = true;                                                     // Something has changed            //
     lastPushed    = millis();                                                 // Store new push button time       //
     _RedTarget    = _ColorPushButtonR;                                        // Set target color                 //
     _GreenTarget  = _ColorPushButtonG;                                        // Set target color                 //
@@ -107,12 +108,14 @@ void EncoderClass::PushButtonHandler() {                                      //
     uint8_t sum  = (lastEncoded << 2) | encoded;                              // add to previously encoded value  //
     if(sum==0b1101||sum==0b0100||sum==0b0010||sum==0b1011) {                  // if clockwise turn direction      //
       _EncoderValue++;                                                        // add value and brighten the       //
+      changed       = true;                                                   // Something has changed            //
       _LEDChanged   = true;                                                   // We are changing target values    //
       _RedTarget    = _ColorCWR;                                              // Set target color                 //
       _GreenTarget  = _ColorCWG;                                              // Set target color                 //
       _BlueTarget   = _ColorCWB;                                              // Set target color                 //
     } else if(sum==0b1110||sum==0b0111||sum==0b0001||sum==0b1000) {           // if a counterclockwise turn       //
       _EncoderValue--;                                                        // subtract the value and brighten  //
+      changed       = true;                                                   // Something has changed            //
       _LEDChanged   = true;                                                   // We are changing target values    //
       _RedTarget    = _ColorCCWR;                                             // Set target color                 //
       _GreenTarget  = _ColorCCWG;                                             // Set target color                 //

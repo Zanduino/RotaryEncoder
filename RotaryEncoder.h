@@ -65,6 +65,7 @@
                    const uint8_t PushbuttonPin, const uint8_t RedPin=255,     //                                  //
                    const uint8_t GreenPin=255,const uint8_t BluePin=255,      //                                  //
                    const bool HWDebounce=false);                              //                                  //
+      volatile bool changed = false;                                          // Set to true on push or rotate    //
       uint8_t     GetButton();                                                // Returns number of button pushes  //
       int16_t     GetEncoderValue();                                          // Return the encoder value         //
       static void TimerISR();                                                 // Interim ISR calls real handler   //
