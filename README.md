@@ -20,4 +20,6 @@ Fading of the colored encoder LEDs is done by using the timer0, which is used by
 
 See the [Wiki pages for details](https://github.com/SV-Zanshin/RotaryEncoder/wiki) of the class and the variables / functions accessible in it.
 
+[![DOI](https://www.zenodo.org/badge/76298076.svg)](https://www.zenodo.org/badge/latestdoi/76298076)
+
 ![Zanshin Logo](https://www.sv-zanshin.com/r/images/site/gif/zanshinkanjitiny.gif) <img src="https://www.sv-zanshin.com/r/images/site/gif/zanshintext.gif" width="75"/>
