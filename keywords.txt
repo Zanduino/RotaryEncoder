@@ -10,16 +10,16 @@ EncoderClass	KEYWORD1
 ####################################
 # Methods and Functions (KEYWORD2) #
 ####################################
-GetButton		KEYWORD2
-GetEncoderValue		KEYWORD2
-TimerISR		KEYWORD2
-SetEncoderValue		KEYWORD2
-SetLEDState		KEYWORD2
-SetFadeRate		KEYWORD2
-SetColor		KEYWORD2
+GetButton	KEYWORD2
+GetEncoderValue	KEYWORD2
+TimerISR	KEYWORD2
+SetEncoderValue	KEYWORD2
+SetLEDState	KEYWORD2
+SetFadeRate	KEYWORD2
+SetColor	KEYWORD2
 SetPushButtonColor	KEYWORD2
-SetCWTurnColor		KEYWORD2
-SetCCWTurnColor		KEYWORD2
+SetCWTurnColor	KEYWORD2
+SetCCWTurnColor	KEYWORD2
 
 ########################
 # Constants (LITERAL1) #
