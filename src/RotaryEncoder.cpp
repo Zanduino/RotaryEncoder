@@ -233,3 +233,4 @@ void EncoderClass::SetFadeRate(const uint8_t FadeSpeed) {                     //
     sei();                                                                    // Enable interrupts                //
   } // of if-then-else we need to turn fading on or off                       //                                  //
 } // of method SetFadeRate                                                    //                                  //
+
