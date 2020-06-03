@@ -1,4 +1,4 @@
-# RotaryEncoder
+# RotaryEncoder<br>[![arduino-library-badge](https://www.ardu-badge.com/badge/RotaryEncoder.svg?)](https://www.ardu-badge.com/RotaryEncoder) [![DOI](https://www.zenodo.org/badge/76298076.svg)](https://www.zenodo.org/badge/latestdoi/76298076) [![Wiki](https://github.com/SV-Zanshin/BME680/blob/master/Images/Documentation-wiki.svg)](https://github.com/SV-Zanshin/RotaryEncoder/wiki)
 <img src="https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.jpg" width="175" align="right"/> *Arduino* library which defines methods for accessing the 3-Color LED Rotary Encoder. This is manufactured by Top-Up and other companies and is available from many sources on the internet. The manufacturer's serial number is EC12PSD-017 and it can be found referenced at sources such as 
 https://www.sparkfun.com/products/10982 or https://www.proto-pic.co.uk/rotary-encoder-illuminated-rgb.html along with numerous other 
 places on eBay or Amazon. The encoder sends out rotational information on 2 pins using a quadrature system and also has a pushbutton.
@@ -19,7 +19,5 @@ write of "255" turns the respective LED off and an analog write of "0" turns it 
 Fading of the colored encoder LEDs is done by using the timer0, which is used by the Arduino millis() function and fires approximately every millisecond. 
 
 See the [Wiki pages for details](https://github.com/SV-Zanshin/RotaryEncoder/wiki) of the class and the variables / functions accessible in it.
-
-[![DOI](https://www.zenodo.org/badge/76298076.svg)](https://www.zenodo.org/badge/latestdoi/76298076)
 
 ![Zanshin Logo](https://www.sv-zanshin.com/r/images/site/gif/zanshinkanjitiny.gif) <img src="https://www.sv-zanshin.com/r/images/site/gif/zanshintext.gif" width="75"/>
