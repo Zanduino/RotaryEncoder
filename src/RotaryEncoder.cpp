@@ -11,9 +11,9 @@ function, which in turn uses a pointer to the class with an offset to the approp
 call the correct function.
 */
 EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,  // Class constructor
-                           const uint8_t PushbuttonPin, const uint8_t RedPin = 255,
-                           const uint8_t GreenPin = 255, const uint8_t BluePin = 255,
-                           const bool HWDebounce = false)
+                           const uint8_t PushbuttonPin, const uint8_t RedPin,
+                           const uint8_t GreenPin, const uint8_t BluePin,
+                           const bool HWDebounce)
     : _LeftPin(LeftPin),
       _RightPin(RightPin),
       _PushbuttonPin(PushbuttonPin),
@@ -127,9 +127,10 @@ void EncoderClass::PushButtonHandler() {
 }  // of method PushButtonHandler()
    /*
    function RotateHandler() is the actual ISR called when a pin change on the left or right pin is
-   detected. The    quadrature values for the 2 pins are read and the two bits are stored in the "encoded"
-   variable. This is ORd    with the previous value to get 4 bits and there are only 8 possible values
-   that denote a valid reading and    inform us as to which direction the dial was turned.
+   detected. The    quadrature values for the 2 pins are read and the two bits are stored in the
+   "encoded"    variable. This is ORd    with the previous value to get 4 bits and there are only 8
+   possible values    that denote a valid reading and    inform us as to which direction the dial was
+   turned.
    */
 void EncoderClass::RotateHandler() {
   static uint8_t lastEncoded = 0;                            // Save last encoded raw value
@@ -234,7 +235,7 @@ int16_t EncoderClass::GetEncoderValue() {
 function SetEncoderValue() is called to set the current encoder rotator value as a signed integer
 number
 */
-void EncoderClass::SetEncoderValue(const int16_t NewValue = 0) {
+void EncoderClass::SetEncoderValue(const int16_t NewValue) {
   _EncoderValue = NewValue;  // Set the new value
 }  // of method SetEncoderValue()
 /*
