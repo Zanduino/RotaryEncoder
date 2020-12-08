@@ -63,7 +63,7 @@ EncoderClass Encoder(
     ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN, RED_PIN, GREEN_PIN, BLUE_PIN,
     false);  ///< Instantiate class. If using HW de-bounce, internal pull-ups disabled else enabled
 
-void setup() { 
+void setup() {
   /*!
     @brief    Arduino method called once at startup to initialize the system
     @details  This is an Arduino IDE method which is called first upon boot or restart. It is only
