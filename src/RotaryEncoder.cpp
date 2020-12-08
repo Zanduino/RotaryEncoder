@@ -12,8 +12,7 @@ call the correct function.
 */
 EncoderClass::EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,  // Class constructor
                            const uint8_t PushbuttonPin, const uint8_t RedPin,
-                           const uint8_t GreenPin, const uint8_t BluePin,
-                           const bool HWDebounce)
+                           const uint8_t GreenPin, const uint8_t BluePin, const bool HWDebounce)
     : _LeftPin(LeftPin),
       _RightPin(RightPin),
       _PushbuttonPin(PushbuttonPin),

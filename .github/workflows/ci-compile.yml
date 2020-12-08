@@ -4,6 +4,7 @@
 ##                                                                                                ##
 ## Version Date       Developer      Comments                                                     ##
 ## ======= ========== ============== ============================================================ ##
+## 1.0.2   2020-12-08 SV-Zanshin     Explicitly listed processors instead of "zanshin_platforms"  ##
 ## 1.0.1   2020-12-07 SV-Zanshin     Changed name to a short text                                 ##
 ## 1.0.0   2020-12-05 SV-Zanshin     Initial coding                                               ##
 ##                                                                                                ##
@@ -32,4 +33,4 @@ jobs:
        - name: 'Install Arduino CLI package'
          run: bash ${GITHUB_WORKSPACE}/Common/Scripts/install_arduino_cli.sh
        - name: 'Run master compile python program'
-         run: python3 ${GITHUB_WORKSPACE}/Common/Python/build_platform.py zanshin_platforms
+         run: python3 ${GITHUB_WORKSPACE}/Common/Python/build_platform.py uno leonardo mega2560 protrinket5v flora feather32u4
