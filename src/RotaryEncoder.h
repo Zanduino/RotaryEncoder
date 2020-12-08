@@ -1,4 +1,9 @@
-/*!
+/*! @file RotaryEncoder.h
+
+@mainpage Arduino Library to access a rotary encoder
+
+@section RotaryEncoder_section Description
+
 This program defines the RotaryEncoder class header.
 
 This program demonstrates the Rotary Encoder class which controls a commonly used rotary encoder
@@ -41,6 +46,8 @@ allowing the code to be printed in A4 landscape mode. There are several parts of
 somewhat optimized, but in order to make the c++ code more understandable by non-programmers some
 performance has been sacrificed for legibility and maintainability.
 
+@section license License
+
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version. This program is distributed in the hope that it will
@@ -49,33 +56,44 @@ FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. 
 received a copy of the GNU General Public License along with this program.  If not, see
 <http://www.gnu.org/licenses/>.
 
+@section author Author
+
+Written by Arnd, https://github.com/SV-Zanshin
+
+@section versions Changelog
+
 | Version | Date       | Developer  | Comments
 | ------- | ---------- |------------| --------------------------------------------------------------
 | 1.0.4   | 2017-10-03 | SV-Zanshin | Added optional hardware debounce switch on instantiation
 | 1.0.3   | 2016-12-21 | SV-Zanshin | Corrected volatile variables and fixed SetColor() call
-| 1.0.2   | 2016-12-18 | SV-Zanshin | Changed SetFade() to SetFadeRate() function to alter fade
-speed | 1.0.1   | 2016-12-14 | SV-Zanshin | Fixed error on condition to turn off LED lights. | 1.0.0
-| 2016-12-14 | SV-Zanshin | Allowed defaults for LEDs on class constructer | 1.0.b3  | 2016-12-13 |
-SV-Zanshin | Made fading start only after the maximum setting was reached | 1.0.b2  | 2016-12-12 |
-SV-Zanshin | Fixed interrupt calls | 1.0.b1  | 2016-12-04 | SV-Zanshin | Initial coding
+| 1.0.2   | 2016-12-18 | SV-Zanshin | Changed SetFade() to SetFadeRate() to alter fade speed
+| 1.0.1   | 2016-12-14 | SV-Zanshin | Fixed error on condition to turn off LED lights.
+| 1.0.0   | 2016-12-14 | SV-Zanshin | Allowed defaults for LEDs on class constructer
+| 1.0.b3  | 2016-12-13 | SV-Zanshin | Made fading start only after the maximum setting was reached
+| 1.0.b2  | 2016-12-12 | SV-Zanshin | Fixed interrupt calls
+| 1.0.b1  | 2016-12-04 | SV-Zanshin | Initial coding
 
 */
 #include "Arduino.h"     // Arduino data type definitions
 #ifndef RotaryEncoder_h  // Guard code definition
-#define RotaryEncoder_h  // Define the name inside guard code
+#define RotaryEncoder_h  ///< Define the name inside guard code
 class EncoderClass {
+  /*!
+   * @class EncoderClass
+   * @brief Main class definition for the rotary encoder
+   */
  public:                                                       // Publicly visible class members
   EncoderClass(const uint8_t LeftPin, const uint8_t RightPin,  // Class constructor
                const uint8_t PushbuttonPin, const uint8_t RedPin = 255,
                const uint8_t GreenPin = 255, const uint8_t BluePin = 255,
                const bool HWDebounce = false);
-  volatile bool changed = false;                              // Set to true on push or rotate
+  volatile bool changed = false;                              ///< Set to true on push or rotate
   uint8_t       GetButton();                                  // Returns number of button pushes
   int16_t       GetEncoderValue();                            // Return the encoder value
   static void   TimerISR();                                   // Interim ISR calls real handler
   void          SetEncoderValue(const int16_t NewValue = 0);  // Set the encoder value
   void          SetLEDState(const bool Status);               // Turns encoder LEDs on or off
-  void          SetFadeRate(uint8_t FadeMillis);              // Sets the fader state and speed
+  void          SetFadeRate(uint8_t FadeSpeed);               // Sets the fader state and speed
   void          SetColor(const uint8_t R, const uint8_t G, const uint8_t B);  // Sets the LED colors
   void          SetPushButtonColor(const uint8_t R, const uint8_t G,  // Sets the RGB pushbutton
                                    const uint8_t B);
@@ -90,27 +108,27 @@ class EncoderClass {
   void                 PushButtonHandler();  // Real handler for pushbutton event
   void                 TimerHandler();       // Called every millisecond for fade
   static EncoderClass* ClassPtr;             // store pointer to class itself
-  uint8_t              _LeftPin;             // Store local copies of the pins
-  uint8_t              _RightPin;            // declared at class instantiation
+  uint8_t              _LeftPin;             ///< Store local copies of the pins
+  uint8_t              _RightPin;            ///< declared at class instantiation
   uint8_t              _PushbuttonPin;
   uint8_t              _RedPin;
   uint8_t              _GreenPin;
   uint8_t              _BluePin;
-  uint8_t              _FadeMillis{1};        // 1=fast, 0=Off
-  bool                 _LEDOn{true};          // Default to display LED lights
-  volatile bool        _LEDChanged{true};     // Set when rotate or click changes
-  volatile uint8_t     _ButtonPresses{0};     // The current number of pushes
-  volatile long        _EncoderValue{0};      // The current encoder value
-  volatile uint8_t     _RedActual{255};       // Actual value for the Red LED
-  volatile uint8_t     _RedTarget{255};       // Target value for the Red LED
-  volatile uint8_t     _GreenActual{255};     // Actual value for the Green LED
-  volatile uint8_t     _GreenTarget{255};     // Target value for the Green LED
-  volatile uint8_t     _BlueActual{255};      // Actual value for the Blue LED
-  volatile uint8_t     _BlueTarget{255};      // Target value for the Blue LED
-  uint8_t              _ColorPushButtonR{0};  // Default pushbutton to pure Red
+  uint8_t              _FadeMillis{1};        ///< 1=fast, 0=Off
+  bool                 _LEDOn{true};          ///< Default to display LED lights
+  volatile bool        _LEDChanged{true};     ///< Set when rotate or click changes
+  volatile uint8_t     _ButtonPresses{0};     ///< The current number of pushes
+  volatile long        _EncoderValue{0};      ///< The current encoder value
+  volatile uint8_t     _RedActual{255};       ///< Actual value for the Red LED
+  volatile uint8_t     _RedTarget{255};       ///< Target value for the Red LED
+  volatile uint8_t     _GreenActual{255};     ///< Actual value for the Green LED
+  volatile uint8_t     _GreenTarget{255};     ///< Target value for the Green LED
+  volatile uint8_t     _BlueActual{255};      ///< Actual value for the Blue LED
+  volatile uint8_t     _BlueTarget{255};      ///< Target value for the Blue LED
+  uint8_t              _ColorPushButtonR{0};  ///< Default pushbutton to pure Red
   uint8_t              _ColorPushButtonG{255};
   uint8_t              _ColorPushButtonB{255};
-  uint8_t              _ColorCWR{255};  // Color for clockwise turns
+  uint8_t              _ColorCWR{255};  ///< Color for clockwise turns
   uint8_t              _ColorCWG{0};
   uint8_t              _ColorCWB{255};
   uint8_t              _ColorCCWR{255};  // Color for counterclockwise turns

@@ -1,4 +1,7 @@
-/*!
+/*! @file StandardColors.ino
+
+@section StandardColors_intro_section Description
+
 This program is a simple example showing the default colors for clockwise rotation, counterclockwise
 rotation, and pushbutton with the default fade rate turned on. The presses and rotation values are
 sent to the serial port.
@@ -21,6 +24,8 @@ will work on an Arduino micro. See https://www.arduino.cc/en/Reference/AttachInt
 about which pins will work on which processors/systems. The pins chosen for the RED_PIN, GREEN_PIN
 and BLUE_PIN should be PWM capable pins so that the fading will work.
 
+@section StandardColors_license License
+
 This program is free software: you can redistribute it and/or modify it under the terms of the GNU
 General Public License as published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version. This program is distributed in the hope that it will
@@ -28,6 +33,12 @@ be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHA
 FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details. You should have
 received a copy of the GNU General Public License along with this program. If not, see
 <http://www.gnu.org/licenses/>.
+
+@section StandardColors_author Author
+
+Written by Arnd, https://github.com/SV-Zanshin
+
+@section StandardColors?versions Changelog
 
 | Version | Date       | Developer  | Comments
 | ------- | ---------- |------------| --------------------------------------------------------------
@@ -39,26 +50,33 @@ received a copy of the GNU General Public License along with this program. If no
 
 */
 
-#include <RotaryEncoder.h>        // Include Encoder library
-const uint8_t ROTARY_PIN_1{0};    // Pin for left rotary encoder pin
-const uint8_t ROTARY_PIN_2{1};    // Pin for right rotary encoder pin
-const uint8_t PUSHBUTTON_PIN{7};  // Pin for pushbutton connector pin
-const uint8_t RED_PIN{11};        // Red LED PWM pin. Ground = FULL
-const uint8_t GREEN_PIN{10};      // Green LED PWM pin. Ground = FULL
-const uint8_t BLUE_PIN{9};        // Blue LED PWM pin. Ground = FULL
+#include <RotaryEncoder.h>            ///< Include Encoder library
+const uint32_t SERIAL_SPEED{115200};  ///< Set the baud rate for Serial I/O
+const uint8_t  ROTARY_PIN_1{0};       ///< Pin for left rotary encoder pin
+const uint8_t  ROTARY_PIN_2{1};       ///< Pin for right rotary encoder pin
+const uint8_t  PUSHBUTTON_PIN{7};     ///< Pin for pushbutton connector pin
+const uint8_t  RED_PIN{11};           ///< Red LED PWM pin. Ground = FULL
+const uint8_t  GREEN_PIN{10};         ///< Green LED PWM pin. Ground = FULL
+const uint8_t  BLUE_PIN{9};           ///< Blue LED PWM pin. Ground = FULL
 
-EncoderClass Encoder(ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN,  // Instantiate class defining all
-                     RED_PIN, GREEN_PIN, BLUE_PIN, false);        // of the pins that are used
-                                                                  // If using HW de-bounce, internal
-                                                                  // pull-ups disabled else enabled
+EncoderClass Encoder(
+    ROTARY_PIN_1, ROTARY_PIN_2, PUSHBUTTON_PIN, RED_PIN, GREEN_PIN, BLUE_PIN,
+    false);  ///< Instantiate class. If using HW de-bounce, internal pull-ups disabled else enabled
 
-void setup() {
+void setup() { 
+  /*!
+    @brief    Arduino method called once at startup to initialize the system
+    @details  This is an Arduino IDE method which is called first upon boot or restart. It is only
+              called one time and then control goes to the main "loop()" method, from which
+              control never returns
+    @return   void
+   */
   Serial.println(F("Starting Encoder Program..."));
-  Encoder.SetFadeRate(0);     // Turn off fading
-  Encoder.SetColor(0, 0, 0);  // Set LED full on, allow to fade
-  Serial.begin(115200);       // Initialize Serial I/O at speed
-  delay(3000);                // Wait 3 seconds for initialization
-  Encoder.SetFadeRate(20);    // Set slow 20ms per tick fade rate
+  Encoder.SetFadeRate(0);      // Turn off fading
+  Encoder.SetColor(0, 0, 0);   // Set LED full on, allow to fade
+  Serial.begin(SERIAL_SPEED);  // Initialize Serial I/O at speed
+  delay(3000);                 // Wait 3 seconds for initialization
+  Encoder.SetFadeRate(20);     // Set slow 20ms per tick fade rate
   Serial.println(F("Default clockwise        = Green,"));
   Serial.println(F("Default Counterclockwise = Blue,"));
   Serial.println(F("Default Pushbutton       = Red,"));
@@ -68,6 +86,12 @@ void setup() {
 }  // of method setup()
 
 void loop() {
+  /*!
+    @brief    Arduino method for the main program loop
+    @details  This is the main program for the Arduino IDE, it is an infinite loop and keeps on
+              repeating.
+    @return   void
+  */
   static int last    = Encoder.GetEncoderValue();  // Store previous Encoder value
   uint8_t    presses = Encoder.GetButton();        // See how often button was pressed
   if (presses > 0) {                               // If the button was pushed,
