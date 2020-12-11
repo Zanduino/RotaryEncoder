@@ -3,6 +3,8 @@ var NAVTREE =
   [ "RotaryEncoder", "index.html", [
     [ "Arduino Library to access a rotary encoder", "index.html", [
       [ "Description", "index.html#RotaryEncoder_section", null ],
+      [ "configuration", "index.html#doxygen", null ],
+      [ "clang-format", "index.html#clang-format", null ],
       [ "License", "index.html#license", null ],
       [ "Author", "index.html#author", null ],
       [ "Changelog", "index.html#versions", null ]

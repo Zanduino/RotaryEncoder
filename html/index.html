@@ -29,9 +29,9 @@
  <tr style="height: 56px;">
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">RotaryEncoder
-   &#160;<span id="projectnumber">V1.0.3</span>
+   &#160;<span id="projectnumber">v1.0.6</span>
    </div>
-   <div id="projectbrief">Arduino Library for controlling a 3-Color Rotary Encoder</div>
+   <div id="projectbrief">Arduino Library for reading a 3-LED Rotary Encoder</div>
   </td>
  </tr>
  </tbody>
@@ -92,14 +92,20 @@ Description</h1>
 <p>Each Atmel processor has different pins available for interrupts, so the choice of pins to use for the ROTARY_PIN_1, ROTARY_PIN_2 and PUSHBUTTON_PIN is quite limited. A good description of the pins and their uses can be found at <a href="https://www.arduino.cc/en/Reference/AttachInterrupt">https://www.arduino.cc/en/Reference/AttachInterrupt</a>.</p>
 <p>The library uses the Arduino functions "digitalRead()" to get pin state in the interrupt handlers. These are relatively slow compared to the direct register reading methods available. Since the library is designed for a hand-turned encoder versus a high-speed machine with thousands of RPM the slower functions have been retained for more portability and legibility. Going directly to the PORTA, PORTB, etc. register reads would make the pin mapping that needs to be done too complex.</p>
 <p>The rotary encoder has a common cathode (+) for the 3 LED lights. The pins for the 3 colors need to be attached to any 3 available PWM pins (not all of the Atmel pins are PWM, see <a href="https://www.arduino.cc/en/Tutorial/PWM">https://www.arduino.cc/en/Tutorial/PWM</a>) and since these pins to be driven to ground, a value of 255 equates to "OFF" while a value of 0 equates to "ON". The encoder doesn't have any current limiting resistors for the 3 LEDs, so these need to be added. The forward voltage for the red is 2.0V and the green/blue LEDs have 3.3V and with a 25mA current that equates to resistors at 120 and 68 Ohms respectively.</p>
-<p>The pushbutton should have a pull-down resistor of 4.7KOhm to reduce bounce. The sample breadboard schematic used for the examples for this library can be located at in Github at the following address: <a href="https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.png">https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.png</a></p>
+<p>The pushbutton should have a pull-down resistor of 4.7KOhm to reduce bounce. The sample breadboard schematic used for the examples for this library can be located at in Github at the following address: <a href="https://github.com/Zanduino/RotaryEncoder/blob/master/Images/RotaryEncoder.png">https://github.com/Zanduino/RotaryEncoder/blob/master/Images/RotaryEncoder.png</a></p>
 <p>Although programming for the Arduino and in c/c++ is new to me, I'm a professional programmer and have learned, over the years, that it is much easier to ignore superfluous comments than it is to decipher non-existent ones; so both my comments and variable names tend to be verbose. The code is written to fit in the first 80 spaces and the comments start after that and go to column 100 - allowing the code to be printed in A4 landscape mode. There are several parts of code which can be somewhat optimized, but in order to make the c++ code more understandable by non-programmers some performance has been sacrificed for legibility and maintainability.</p>
+<h1><a class="anchor" id="doxygen"></a>
+configuration</h1>
+<p>This library is built with the standard "Doxyfile", which is located at <a href="https://github.com/Zanduino/Common/blob/main/Doxygen">https://github.com/Zanduino/Common/blob/main/Doxygen</a>. As described on that page, there are only 5 environment variables used, and these are set in the project's actions file, located at <a href="https://github.com/Zanduino/RotaryEncoder/blob/master/.github/workflows/ci-doxygen.yml">https://github.com/Zanduino/RotaryEncoder/blob/master/.github/workflows/ci-doxygen.yml</a> Edit this file and set the 5 variables: PRETTYNAME, PROJECT_NAME, PROJECT_NUMBER, PROJECT_BRIEF and PROJECT_LOGO so that these values are used in the doxygen documentation. The local copy of the doxyfile should be in the project's root directory in order to do local doxygen testing, but the file is ignored on upload to GitHub.</p>
+<h1><a class="anchor" id="clang-format"></a>
+clang-format</h1>
+<p>Part of the GitHub actions for CI is running every source file through "clang-format" to ensure that coding formatting is done the same for all files. The configuration file ".clang-format" is located at <a href="https://github.com/Zanduino/Common/tree/main/clang-format">https://github.com/Zanduino/Common/tree/main/clang-format</a> and this is used for CI tests when pushing to GitHub. The local file, if present in the root directory, is ignored when committing and uploading.</p>
 <h1><a class="anchor" id="license"></a>
 License</h1>
 <p>This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see <a href="http://www.gnu.org/licenses/">http://www.gnu.org/licenses/</a>.</p>
 <h1><a class="anchor" id="author"></a>
 Author</h1>
-<p>Written by Arnd, <a href="https://github.com/SV-Zanshin">https://github.com/SV-Zanshin</a></p>
+<p>Written by Arnd <a href="#" onclick="location.href='mai'+'lto:'+'Zan'+'sh'+'in_'+'Gi'+'thu'+'b@'+'sv-'+'za'+'nsh'+'in'+'.co'+'m'; return false;">Zansh<span style="display: none;">.nosp@m.</span>in_G<span style="display: none;">.nosp@m.</span>ithub<span style="display: none;">.nosp@m.</span>@sv-<span style="display: none;">.nosp@m.</span>zansh<span style="display: none;">.nosp@m.</span>in.c<span style="display: none;">.nosp@m.</span>om</a> / <a href="https://www.github.com/SV-Zanshin">https://www.github.com/SV-Zanshin</a></p>
 <h1><a class="anchor" id="versions"></a>
 Changelog</h1>
 <table class="doxtable">
