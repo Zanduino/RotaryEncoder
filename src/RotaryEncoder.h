@@ -36,7 +36,7 @@ respectively.
 
 The pushbutton should have a pull-down resistor of 4.7KOhm to reduce bounce. The sample breadboard
 schematic used for the examples for this library can be located at in Github at the following
-address: https://github.com/SV-Zanshin/RotaryEncoder/blob/master/Images/RotaryEncoder.png
+address: https://github.com/Zanduino/RotaryEncoder/blob/master/Images/RotaryEncoder.png
 
 Although programming for the Arduino and in c/c++ is new to me, I'm a professional programmer and
 have learned, over the years, that it is much easier to ignore superfluous comments than it is to
@@ -45,6 +45,23 @@ written to fit in the first 80 spaces and the comments start after that and go t
 allowing the code to be printed in A4 landscape mode. There are several parts of code which can be
 somewhat optimized, but in order to make the c++ code more understandable by non-programmers some
 performance has been sacrificed for legibility and maintainability.
+
+@section doxygen configuration
+This library is built with the standard "Doxyfile", which is located at
+https://github.com/Zanduino/Common/blob/main/Doxygen. As described on that page, there are only 5
+environment variables used, and these are set in the project's actions file, located at
+https://github.com/Zanduino/RotaryEncoder/blob/master/.github/workflows/ci-doxygen.yml
+Edit this file and set the 5 variables: PRETTYNAME, PROJECT_NAME, PROJECT_NUMBER, PROJECT_BRIEF and
+PROJECT_LOGO so that these values are used in the doxygen documentation.
+The local copy of the doxyfile should be in the project's root directory in order to do local
+doxygen testing, but the file is ignored on upload to GitHub.
+
+@section clang-format
+Part of the GitHub actions for CI is running every source file through "clang-format" to ensure
+that coding formatting is done the same for all files. The configuration file ".clang-format" is
+located at https://github.com/Zanduino/Common/tree/main/clang-format and this is used for CI tests
+when pushing to GitHub. The local file, if present in the root directory, is ignored when
+committing and uploading.
 
 @section license License
 
@@ -58,7 +75,7 @@ received a copy of the GNU General Public License along with this program.  If n
 
 @section author Author
 
-Written by Arnd, https://github.com/SV-Zanshin
+Written by Arnd <Zanshin_Github@sv-zanshin.com> / https://www.github.com/SV-Zanshin
 
 @section versions Changelog
 

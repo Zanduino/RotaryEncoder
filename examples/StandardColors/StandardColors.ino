@@ -6,7 +6,7 @@ This program is a simple example showing the default colors for clockwise rotati
 rotation, and pushbutton with the default fade rate turned on. The presses and rotation values are
 sent to the serial port.
 
-The wiki pages for the library can be found at https://github.com/SV-Zanshin/RotaryEncoder/wiki
+The wiki pages for the library can be found at https://github.com/Zanduino/RotaryEncoder/wiki
 
 This program demonstrates the Rotary Encoder class which controls a commonly used rotary encoder
 with a clear knob using 3 colored LEDs (Red, Green and Blue) along with a pushbutton. These are
@@ -36,7 +36,7 @@ received a copy of the GNU General Public License along with this program. If no
 
 @section StandardColors_author Author
 
-Written by Arnd, https://github.com/SV-Zanshin
+Written by Arnd <Zanshin_Github@sv-zanshin.com> / https://www.github.com/SV-Zanshin
 
 @section StandardColors?versions Changelog
 
