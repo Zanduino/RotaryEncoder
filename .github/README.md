@@ -23,4 +23,4 @@ Fading of the colored encoder LEDs is done by using the timer0, which is used by
 
 See the [Wiki pages for details](https://github.com/Zanduino/RotaryEncoder/wiki) of the class and the variables / functions accessible in it.
 
-[![Zanshin Logo](https://zanduino.github.io/Images/zanshinkanjitiny.gif) <img src="https://zanduino.github.io/Images/zanshintext.gif" width="75"/>](https://www.sv-zanshin.com)
+[![Zanshin Logo](https://zanduino.github.io/Images/zanshinkanjitiny.gif) <img src="https://zanduino.github.io/Images/zanshintext.gif" width="75"/>](https://zanduino.github.io)
