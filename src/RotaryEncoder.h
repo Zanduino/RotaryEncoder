@@ -91,9 +91,9 @@ Written by Arnd <Arnd@Zanduino.Com> at https://www.github.com/SV-Zanshin
 | 1.0.b1  | 2016-12-04 | SV-Zanshin | Initial coding
 
 */
-#include "Arduino.h"     // Arduino data type definitions
-#ifndef RotaryEncoder_h  // Guard code definition
-#define RotaryEncoder_h  ///< Define the name inside guard code
+#include "Arduino.h"       // Arduino data type definitions
+#ifndef RotaryEncoder_h    // Guard code definition
+  #define RotaryEncoder_h  ///< Define the name inside guard code
 class EncoderClass {
   /*!
    * @class EncoderClass
